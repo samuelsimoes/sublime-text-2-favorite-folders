@@ -104,7 +104,7 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
                     self.show_folder_contents_list(origin_path)
             else:
                 if (index == 0):
-                    file_operation.open_file()
+                    self.window.open_file(absolute_path)
                 elif (index == 1):
                     file_operation.delete()
                 elif (index == 2):
