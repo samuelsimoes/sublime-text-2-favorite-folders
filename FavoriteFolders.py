@@ -38,14 +38,25 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
     def run(self):
         self.view = sublime.active_window().active_view()
         self.project_settings = self.view.settings().get('FavoriteFolders', {})
-        self.show_folder_contents_list(self.get_bookmarked_folders())
+        self.show_favorites_folders()
 
     def get_setting(self,name):
         value = self.project_settings.get(name)
         return (plugin_settings.get(name), value)[value != None]
 
     def get_bookmarked_folders(self):
-        return self.get_setting("folder")
+        return self.get_setting("folders")
+
+    def show_favorites_folders(self):
+        bookmarked_folders = self.get_bookmarked_folders()
+        options = []
+        for folder in bookmarked_folders:
+            options.append([folder[1], folder[2]])
+
+        def take_action(index):
+            self.show_folder_contents_list(bookmarked_folders[index][0])
+
+        self.window.show_quick_panel(options, take_action, sublime.MONOSPACE_FONT)
 
     def show_folder_contents_list(self, abs_folder_path):
         dir_paths = []
