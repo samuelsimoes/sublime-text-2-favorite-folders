@@ -54,6 +54,8 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
             options.append([folder[1], folder[2]])
 
         def take_action(index):
+            if (index==-1):
+                return
             self.show_folder_contents_list(bookmarked_folders[index][0])
 
         self.window.show_quick_panel(options, take_action, sublime.MONOSPACE_FONT)
@@ -90,6 +92,8 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
         options.append(['* Back to List'])
 
         def take_action(index):
+            if (index==-1):
+                return
             file_operation = FileOperation(self, absolute_path, relative_path)
             if is_dir:
                 if (index == 0):
