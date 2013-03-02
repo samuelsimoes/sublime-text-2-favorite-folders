@@ -70,6 +70,8 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
         dir_paths = sorted(dir_paths)
 
         def resolve_action(index):
+            if (index==-1):
+                return
             relative_path = dir_paths[index][0]
             absolute_path = paths[relative_path]
             self.show_options(absolute_path, relative_path, abs_folder_path)
