@@ -53,8 +53,11 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
     def show_favorites_folders(self):
         bookmarked_folders = self.get_bookmarked_folders()
         options = []
+
         for folder in bookmarked_folders:
-            options.append([folder[1], folder[2]])
+            bookmark_title = folder[1] if (len(folder)>=2) else folder[0]
+            bookmark_desc = folder[2] if (len(folder)>=3) else ''
+            options.append([bookmark_title, bookmark_desc])
 
         def take_action(index):
             if (index==-1):
