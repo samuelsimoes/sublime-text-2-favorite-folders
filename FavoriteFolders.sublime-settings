@@ -1,2 +1,3 @@
 {
+	"excluded_dir_patterns": ".git|.sass-cache|.DS_Store"
 }

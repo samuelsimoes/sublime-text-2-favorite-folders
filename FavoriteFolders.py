@@ -1,35 +1,38 @@
 import sublime
 import sublime_plugin
 import os
+import re
 import shutil
 
-def remove_first_slash(path):
-    path_first_chr = path[0]
-    return (path , path[1:])[path_first_chr=="/"]
+ROOT_NAME = 'Root Folder'
 
-def collect_folders(files, path, search_path):
+def remove_first_slash(path):
+    if len(path)==0: return path
+    path_first_chr = path[0]
+    return (path, path[1:])[path_first_chr=="/"]
+
+def walk(search_path, excluded_dir_patterns):
+    print excluded_dir_patterns
+    excluded = re.compile(excluded_dir_patterns)
     paths = {}
 
-    def collect_current_folder():
-        current_folder_relative = path.replace(search_path, '')
-        current_folder_relative = (current_folder_relative, 'root')[len(current_folder_relative)==0]
-        paths[remove_first_slash(current_folder_relative)] = path
+    def collect():
+        for root, dirs, files in os.walk(search_path):
+            if excluded.search(root) == None:
+                relative_path = remove_first_slash(root.replace(search_path, ''))
+                relative_path = (relative_path, ROOT_NAME)[len(relative_path)==0]
+                paths[relative_path] = root
+                collect_files(files, root)
+        return paths
 
-    def collect_files_with_path():
+    def collect_files(files, root):
         for file in files:
-            absolute_path = os.path.join(path,file)
-            relative_path = absolute_path.replace(search_path, '')
-            paths[remove_first_slash(relative_path)] = absolute_path
+            if excluded.search(file) == None:
+                file_path = os.path.join(root, file)
+                file_path_relative = remove_first_slash(file_path.replace(search_path, ''))
+                paths[file_path_relative] = file_path
 
-    collect_current_folder()
-    collect_files_with_path()
-    return paths
-
-def walk(search_path):
-    paths = dict()
-    for path, dirs, files in os.walk(search_path):
-        paths = dict(paths.items() + collect_folders(files, path, search_path).items())
-    return paths
+    return collect()
 
 plugin_settings = sublime.load_settings('FavoriteFolders.sublime-settings')
 
@@ -62,7 +65,7 @@ class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
 
     def show_folder_contents_list(self, abs_folder_path):
         dir_paths = []
-        paths = walk(abs_folder_path)
+        paths = walk(abs_folder_path, self.get_setting('excluded_dir_patterns'))
 
         for t, path in paths.items():
             dir_paths.insert(0, [t])
