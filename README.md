@@ -8,6 +8,8 @@ In projects using Magento or something like, for example, this can be very usefu
 
 You need declare in to .sublime-project wich folders you want be bookmarked inside an array with key "folders", the three items should follow the format: **["Absolute Path to Folder", "Title of Bookmark", "Description of Bookmarked Folder"]**
 
+You can set a regular expression to filter folders setting the key **excluded_dir_patterns**
+
 **.sublime-project example**
 
 ```json
@@ -21,6 +23,7 @@ You need declare in to .sublime-project wich folders you want be bookmarked insi
 	{
 		"FavoriteFolders":
 		{
+     		"excluded_dir_patterns": ".git|.sass-cache|.DS_Store",
 			"folders": [
 				["/Users/samuel/magento_project/app/design/frontend/default/my_teme", "My Themes Files", "Files of my theme, lol"],
 				["/Users/samuel/magento_project/skin/frontend/default/sprint", "My Themes Assets", "Assets of my Theme"]
