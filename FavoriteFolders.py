@@ -5,6 +5,7 @@ import re
 import shutil
 
 ROOT_NAME = 'Root Folder'
+plugin_settings = sublime.load_settings("favorite_folders.sublime-settings").get("settings")
 
 def remove_first_slash(path):
     if len(path)==0: return path
@@ -33,8 +34,6 @@ def walk(search_path, excluded_dir_patterns):
                 paths[file_path_relative] = file_path
 
     return collect()
-
-plugin_settings = sublime.load_settings('FavoriteFolders.sublime-settings')
 
 class FavoriteFoldersCommand(sublime_plugin.WindowCommand):
 
