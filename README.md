@@ -14,7 +14,7 @@ You need declare in to .sublime-project wich folders you want be bookmarked insi
 
 You can set a regular expression to filter folders setting the key **excluded_dir_patterns**
 
-**.sublime-project example**
+**.sublime-project example in Mac OS or Linux**
 
 ```json
 {
@@ -30,9 +30,30 @@ You can set a regular expression to filter folders setting the key **excluded_di
      		"excluded_dir_patterns": ".git|.sass-cache|.DS_Store",
 			"folders": [
 				["/Users/samuel/magento_project/app/design/frontend/default/my_teme", "My Themes Files", "Files of my theme, lol"],
-				["/Users/samuel/magento_project/skin/frontend/default/sprint", "My Themes Assets", "Assets of my Theme"]
+				["/Users/samuel/magento_project/skin/frontend/default/my_theme", "My Themes Assets", "Assets of my Theme"]
 			]
 		}
 	}
 }
 ```
+
+**.sublime-project example in Windows**
+
+```json
+{
+	"folders": [
+		{
+			"path": "/Users/samuel/magento_project"
+		}
+	],
+	"settings":
+	{
+		"FavoriteFolders":
+		{
+     		"excluded_dir_patterns": ".git|.sass-cache|.DS_Store",
+			"folders": [
+				["C:\\Users\\samuel\\magento_project\\app\\design\\frontend\\default\\my_teme", "My Themes Files", "Files of my theme, lol"],
+			]
+		}
+	}
+}

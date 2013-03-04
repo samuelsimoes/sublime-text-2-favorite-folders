@@ -10,7 +10,7 @@ plugin_settings = sublime.load_settings("favorite_folders.sublime-settings").get
 def remove_first_slash(path):
     if len(path)==0: return path
     path_first_chr = path[0]
-    return (path, path[1:])[path_first_chr=="/"]
+    return (path, path[1:])[path_first_chr=="/" or path_first_chr=="\\"]
 
 def walk(search_path, excluded_dir_patterns):
     excluded = re.compile(excluded_dir_patterns)
