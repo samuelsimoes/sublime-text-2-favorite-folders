@@ -43,7 +43,7 @@ You can set a regular expression to filter folders setting the key **excluded_di
 {
 	"folders": [
 		{
-			"path": "/Users/samuel/magento_project"
+			"path": "/C:/Users/samuel/magento_project"
 		}
 	],
 	"settings":
