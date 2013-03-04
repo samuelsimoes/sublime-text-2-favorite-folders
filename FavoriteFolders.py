@@ -13,7 +13,6 @@ def remove_first_slash(path):
     return (path, path[1:])[path_first_chr=="/"]
 
 def walk(search_path, excluded_dir_patterns):
-    print excluded_dir_patterns
     excluded = re.compile(excluded_dir_patterns)
     paths = {}
 
